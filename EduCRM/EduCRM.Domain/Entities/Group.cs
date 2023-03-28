@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace EduCRM.Domain.Entities
+﻿namespace EduCRM.Domain.Entities
 {
     public class Group
     {

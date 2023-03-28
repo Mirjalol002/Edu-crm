@@ -11,11 +11,11 @@ namespace EduCRM.Infrastructure.Persistence.EntityTypeConfigurations
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x=>x.UserName)
+            builder.Property(x => x.UserName)
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.HasIndex(x=>x.UserName)
+            builder.HasIndex(x => x.UserName)
                 .IsUnique();
 
             builder.HasData(new User()

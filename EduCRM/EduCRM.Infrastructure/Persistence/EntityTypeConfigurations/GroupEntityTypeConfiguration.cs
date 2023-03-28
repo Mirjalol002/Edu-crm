@@ -10,7 +10,7 @@ namespace EduCRM.Infrastructure.Persistence.EntityTypeConfigurations
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x=> x.Name)
+            builder.Property(x => x.Name)
                 .HasMaxLength(100)
                 .IsRequired();
 

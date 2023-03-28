@@ -7,5 +7,8 @@
         public int LessonId { get; set; }
         public bool HasParticipated { get; set; }
 
+
+        public Student Student { get; set; }
+        public Lesson Lesson { get; set; }
     }
 }

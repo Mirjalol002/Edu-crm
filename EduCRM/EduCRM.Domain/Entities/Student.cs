@@ -2,6 +2,12 @@
 {
     public class Student
     {
+        public Student()
+        {
+            Attendances = new HashSet<Attendance>();
+            StudentGroups = new HashSet<StudentGroup>();
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
@@ -11,5 +17,7 @@
         public DateTime CreatedDateTime { get; set; }
         public string Description { get; set; } = string.Empty;
 
+        public ICollection<Attendance> Attendances { get; set; }
+        public ICollection<StudentGroup> StudentGroups { get; set; }
     }
 }

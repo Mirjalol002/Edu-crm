@@ -4,6 +4,10 @@ namespace EduCRM.Domain.Entities
 {
     public class User
     {
+        public User()
+        {
+            Groups = new HashSet<Group>();
+        }
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
@@ -15,5 +19,6 @@ namespace EduCRM.Domain.Entities
         public string PhotoPath { get; set; } = string.Empty;
 
 
+        public ICollection<Group> Groups { get; set; }
     }
 }

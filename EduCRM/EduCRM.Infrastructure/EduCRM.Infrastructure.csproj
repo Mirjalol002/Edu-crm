@@ -10,7 +10,10 @@
     <Folder Include="Abstractions\" />
     <Folder Include="Providers\" />
     <Folder Include="Services\" />
-    <Folder Include="Persistence\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EduCRM.Application\EduCRM.Application.csproj" />
   </ItemGroup>
 
 </Project>

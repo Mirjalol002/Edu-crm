@@ -14,4 +14,8 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EduCRM.Domain\EduCRM.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

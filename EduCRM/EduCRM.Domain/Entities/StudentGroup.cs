@@ -8,5 +8,9 @@
         public DateTime JoinedDate { get; set; }
         public bool IsPaid { get; set; }
 
+
+        public Student Student { get; set; }
+        public Group Group { get; set; }
+
     }
 }

@@ -2,7 +2,6 @@
 using EduCRM.Application.Models;
 using EduCRM.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace EduCRM.Application.Services
 {
@@ -25,11 +24,11 @@ namespace EduCRM.Application.Services
                 throw new Exception("Not found");
             }
             var groupStudent = await _dbContext.Lessons
-                .Where(x=>x.Id == model.LessonId)
-                .Include(x=>x.Group)
-                .ThenInclude(x=>x.StudentGroups)
-                .SelectMany(x=>x.Group.StudentGroups)
-                .Select(x=>x.StudentId)
+                .Where(x => x.Id == model.LessonId)
+                .Include(x => x.Group)
+                .ThenInclude(x => x.StudentGroups)
+                .SelectMany(x => x.Group.StudentGroups)
+                .Select(x => x.StudentId)
                 .ToListAsync();
             var attendanceList = new List<Attendance>();
 

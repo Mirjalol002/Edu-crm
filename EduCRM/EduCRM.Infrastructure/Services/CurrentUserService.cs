@@ -10,7 +10,9 @@ namespace EduCRM.Infrastructure.Services
 
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
+# pragma warning disable
             var userClaims = httpContextAccessor.HttpContext.User.Claims;
+# pragma warning restore
             var idClaim = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Name);
             if (idClaim != null && int.TryParse(idClaim.Value, out int value))
             {

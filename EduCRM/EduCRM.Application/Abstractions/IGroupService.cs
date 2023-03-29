@@ -2,7 +2,7 @@
 
 namespace EduCRM.Application.Abstractions
 {
-    public interface IGroupService : ICrudService<int, GroupViewModel, CreateGroupModel, UpdateViewModel>
+    public interface IGroupService : ICrudService<int, GroupViewModel, CreateGroupModel, UpdateGroupModel>
     {
         Task<List<LessonViewModel>> GetLessonAsync(int groupId);
         Task AddStudentAsync(AddStudentGroupModel groupModel, int groupId);

@@ -1,6 +1,5 @@
 ﻿using EduCRM.Application.Abstractions;
 using EduCRM.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -38,7 +37,7 @@ namespace EduCRM.Infrastructure.Services
                                                 _configuration["JWT:ValidAudience"],
                                                 claims,
                                                 expires: DateTime.UtcNow.AddDays(1),
-                                                signingCredentials: credentials 
+                                                signingCredentials: credentials
                                             );
 
             var tokenHandler = new JwtSecurityTokenHandler();

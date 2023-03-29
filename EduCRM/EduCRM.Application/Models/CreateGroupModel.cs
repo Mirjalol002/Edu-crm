@@ -7,6 +7,6 @@
         public DateOnly StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public TimeSpan LessonStartTime { get; set; }
-        public TimeSpan LessonEndTime { get; set;}
+        public TimeSpan LessonEndTime { get; set; }
     }
 }

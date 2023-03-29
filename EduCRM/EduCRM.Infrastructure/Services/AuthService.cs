@@ -1,7 +1,6 @@
 ﻿using EduCRM.Application.Abstractions;
 using EduCRM.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace EduCRM.Infrastructure.Services
 {

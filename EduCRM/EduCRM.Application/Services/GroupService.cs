@@ -12,11 +12,26 @@ namespace EduCRM.Application.Services
         {
             _dbContext = dbContext;
         }
-        public Task AddStudentAsync(AddStudentGroupModel groupModel, int groupId)
+        public async Task AddStudentAsync(AddStudentGroupModel groupModel, int groupId)
         {
-            throw new NotImplementedException();
+            if (!await _dbContext.Students.AnyAsync(x => x.Id == groupModel.StudentId))
+            {
+                throw new Exception("Not found");
+            }
+            if (!await _dbContext.Groups.AnyAsync(x=>x.Id == groupId))
+            {
+                throw new Exception("Not found");
+            }
+            var studentGroup = new StudentGroup()
+            {
+                Id = groupId,
+                StudentId = groupModel.StudentId,
+                IsPaid = groupModel.IsPaid,
+                JoinedDate = groupModel.JoinedDate,
+            };
+            await _dbContext.StudentGroups.AddAsync(studentGroup);
+            await _dbContext.SaveChangesAsync();
         }
-
         public async Task CreateAsync(CreateGroupModel entity)
         {
             var entities = new Group()
@@ -32,7 +47,6 @@ namespace EduCRM.Application.Services
             _dbContext.Lessons.AddRange(lessons);
             await _dbContext.SaveChangesAsync();
         }
-
         public async Task DeleteAsync(int id)
         {
             var entity = await _dbContext.Groups.FirstOrDefaultAsync(g => g.Id == id);
@@ -43,7 +57,6 @@ namespace EduCRM.Application.Services
             _dbContext.Groups.Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
-
         public async Task<List<GroupViewModel>> GetAllAsync()
         {
             return await _dbContext.Groups
@@ -56,7 +69,6 @@ namespace EduCRM.Application.Services
                     EndDate = x.EndDate
                 }).ToListAsync();
         }
-
         public async Task<GroupViewModel> GetByIdAsync(int id)
         {
             var entity = await _dbContext.Groups.FirstOrDefaultAsync(x => x.Id == id);
@@ -82,9 +94,7 @@ namespace EduCRM.Application.Services
                     EndDateTime = x.EndedDateTime
                 }).ToListAsync();
             return lessons;
-
         }
-
         public async Task RemoveStudentAsync(int studentId, int groupId)
         {
             var entity = await _dbContext.StudentGroups.FirstOrDefaultAsync(x => x.StudentId == studentId && x.GroupId == groupId);
@@ -95,10 +105,18 @@ namespace EduCRM.Application.Services
             _dbContext.StudentGroups.Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
-
-        public Task UpdateAsync(UpdateGroupModel entity)
+        public async Task UpdateAsync(UpdateGroupModel entity)
         {
-            throw new NotImplementedException();
+            var group = await _dbContext.Groups.Include(x => x.Lessons).FirstOrDefaultAsync(x => x.Id == entity.Id);
+            if (group == null)
+            {
+                throw new Exception("Not found");
+            }
+            group.Name = entity.Name ?? group.Name;
+            group.TeacherId = entity.TeacherId ?? group.TeacherId;
+
+            _dbContext.Groups.Update(group);
+            await _dbContext.SaveChangesAsync();
         }
         private List<Lesson> CreateLessons(Group entity, TimeSpan lessonStartTime, TimeSpan lessonEndTime)
         {

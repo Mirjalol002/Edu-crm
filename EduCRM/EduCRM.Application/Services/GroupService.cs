@@ -59,7 +59,7 @@ namespace EduCRM.Application.Services
 
         public async Task<GroupViewModel> GetByIdAsync(int id)
         {
-            var entity = await _dbContext.Groups.FirstOrDefaultAsync(x=>x.Id == id);
+            var entity = await _dbContext.Groups.FirstOrDefaultAsync(x => x.Id == id);
             return new GroupViewModel()
             {
 # pragma warning disable
@@ -71,28 +71,43 @@ namespace EduCRM.Application.Services
                 EndDate = entity.EndDate
             };
         }
-        public Task<List<LessonViewModel>> GetLessonAsync(int groupId)
+        public async Task<List<LessonViewModel>> GetLessonAsync(int groupId)
         {
-            throw new NotImplementedException();
+            var lessons = await _dbContext.Lessons.Where(x => x.GroupId == groupId)
+                .Select(x => new LessonViewModel()
+                {
+                    Id = x.Id,
+                    GroupId = x.GroupId,
+                    StartDateTime = x.StartedDateTime,
+                    EndDateTime = x.EndedDateTime
+                }).ToListAsync();
+            return lessons;
+
         }
 
-        public Task RemoveStudentAsync(int studentId, int groupId)
+        public async Task RemoveStudentAsync(int studentId, int groupId)
         {
-            throw new NotImplementedException();
+            var entity = await _dbContext.StudentGroups.FirstOrDefaultAsync(x => x.StudentId == studentId && x.GroupId == groupId);
+            if (entity == null)
+            {
+                throw new Exception("Not found");
+            }
+            _dbContext.StudentGroups.Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public Task UpdateAsync(UpdateGroupModel entity)
         {
             throw new NotImplementedException();
         }
-        private List<Lesson> CreateLessons(Group entity, TimeSpan lessonStartTime,  TimeSpan lessonEndTime)
+        private List<Lesson> CreateLessons(Group entity, TimeSpan lessonStartTime, TimeSpan lessonEndTime)
         {
             var lessons = new List<Lesson>();
             var totalDaysFromStartToEnd = (entity.EndDate - entity.StartedDate).Days;
             var currentDate = entity.StartedDate;
             for (int i = 1; i < totalDaysFromStartToEnd; i++)
             {
-                if (currentDate.DayOfWeek != DayOfWeek.Saturday && currentDate.DayOfWeek!= DayOfWeek.Sunday)
+                if (currentDate.DayOfWeek != DayOfWeek.Saturday && currentDate.DayOfWeek != DayOfWeek.Sunday)
                 {
                     var lesson = new Lesson()
                     {

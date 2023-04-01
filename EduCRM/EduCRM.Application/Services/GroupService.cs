@@ -18,7 +18,7 @@ namespace EduCRM.Application.Services
             {
                 throw new Exception("Not found");
             }
-            if (!await _dbContext.Groups.AnyAsync(x=>x.Id == groupId))
+            if (!await _dbContext.Groups.AnyAsync(x => x.Id == groupId))
             {
                 throw new Exception("Not found");
             }

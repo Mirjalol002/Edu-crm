@@ -27,7 +27,7 @@ namespace EduCRM.Application.Services
 
         public async Task DeleteAsync(int id)
         {
-            var teacher = await _context.Users.FirstOrDefaultAsync(x=>x.Id == id && x.Role == UserRole.Teacher);
+            var teacher = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && x.Role == UserRole.Teacher);
             if (teacher == null)
             {
                 throw new Exception("Not found");
@@ -38,7 +38,7 @@ namespace EduCRM.Application.Services
 
         public async Task<List<TeacherViewModel>> GetAllAsync()
         {
-            var teacher = await _context.Users.Where(x=>x.Role == UserRole.Teacher).ToListAsync();
+            var teacher = await _context.Users.Where(x => x.Role == UserRole.Teacher).ToListAsync();
             return _mapper.Map<List<TeacherViewModel>>(teacher);
         }
 

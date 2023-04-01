@@ -30,7 +30,7 @@ namespace EduCRM.Application.Services
 
         public async Task DeleteAsync(int id)
         {
-            var student = await _context.Students.FirstOrDefaultAsync(x=>x.Id == id);
+            var student = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
             if (student == null)
             {
                 throw new Exception("Not found");
@@ -49,7 +49,7 @@ namespace EduCRM.Application.Services
                     LastName = x.LastName,
                     PhoneNumber = x.PhoneNumber,
                     Email = x.Email,
-                    BirthDate= x.BirthDate,
+                    BirthDate = x.BirthDate,
                     Description = x.Description
                 }).ToListAsync();
             return students;
@@ -79,10 +79,10 @@ namespace EduCRM.Application.Services
             var studentId = await _context.Students.FirstOrDefaultAsync(x => x.Id == entity.Id);
             var student = new StudentViewModel()
             {
-                Id=entity.Id,
-                FirstName=entity.FirstName,
-                LastName=entity.LastName,
-                PhoneNumber=entity.PhoneNumber,
+                Id = entity.Id,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                PhoneNumber = entity.PhoneNumber,
                 Email = entity.Email,
                 BirthDate = entity.BirthDate,
                 Description = entity.Description
